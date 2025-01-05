@@ -1,0 +1,196 @@
+'use client';
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { GiFlowerPot } from "react-icons/gi";
+import { IoRose } from "react-icons/io5";
+
+export default function Navbar() {
+  const [currentDateTime, setCurrentDateTime] = useState('');
+
+  useEffect(() => {
+    const updateDateTime = () => {
+      const now = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      };
+      setCurrentDateTime(
+        now.toLocaleDateString("en-US", options) + " " +
+        now.toLocaleTimeString('en-US', { hour12: false })
+      );
+    };
+
+    // Initial call to set the time immediately
+    updateDateTime();
+
+    // Set interval to update the time every second
+    const interValid = setInterval(updateDateTime, 1000);
+
+    // Cleanup function to clear the interval when the component is unmounted
+    return () => clearInterval(interValid);
+
+  }, []);  // Empty dependency array ensures this effect runs once when the component mounts
+
+  return (
+    <header className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white body-font gap-5 shadow-lg">
+      <div className="container mx-auto flex flex-wrap p-4 flex-col md:flex-row items-center">
+        {/* Logo Section */}
+        <div className="flex items-center space-x-2 ">
+        <IoRose className="font-bold text-3xl"/>
+          <span className="text-2xl font-extrabold ">Flora</span>
+        </div>
+
+        {/* DateTime with Margin for spacing */}
+        <div className="flex-1 text-center md:text-left mt-4 md:mt-0">
+          <span>{currentDateTime}</span>
+        </div>
+
+        {/* Navbar Links */}
+        <nav className="md:ml-auto flex flex-wrap items-center justify-center md:justify-start text-black">
+          <Link
+            href={"/"}
+            className="mr-5 text-white hover:bg-amber-500 rounded transition-colors duration-300 transform hover:scale-105 p-2">
+            Home
+          </Link>
+
+          <Link
+            href={"/blog"}
+            className="mr-5 text-white hover:bg-amber-500 rounded transition-colors duration-300 transform hover:scale-105 p-2">
+            Blog
+          </Link>
+
+          <Link
+            href={"/contact"}
+            className="mr-5 text-white hover:bg-amber-500 rounded transition-colors duration-300 transform hover:scale-105 p-2">
+            Contact
+          </Link>
+        </nav>
+
+        {/* Button */}
+        <button className="inline-flex items-center bg-black border-0 py-2 px-4 focus:outline-none hover:bg-amber-500 rounded text-white mt-4 md:ml-0 transition-colors duration-300">
+          Youtube
+          <svg
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            className="w-4 h-4 ml-1"
+            viewBox="0 0 24 24">
+            <path d="M12 2v20M6 12l6 6 6-6" />
+          </svg>
+        </button>
+      </div>
+    </header>
+  );
+}
+
+
+import React from 'react';
+import BlogCard from '../Components/BlogCard';
+
+
+
+export default  function Mega () {
+   const post = [
+    {
+      id : '1',
+      title : "Treasure Hunt",
+      description: "A fun adventure where you search for hidden treasures and solve clues",
+      date:"2024-11-28",
+      imageUrl :"/pic1.jpg",
+
+    },
+    {
+      id : '2',
+      title : "Arts and Crafts",
+      description: "Create colorful art and cool crafts using your imagination and different materials",
+      date:"2024-5-16",
+      imageUrl :"/pic10.webp",
+
+    },
+    {
+      id : '3',
+      title : "Science Experiments",
+      description: "Explore how the world works by doing fun and easy science experiments", 
+      date:"2024-11-28",
+      imageUrl :"/pic2.jpg",
+
+    },
+    {
+      id : '4',
+      title : "Cooking or Baking",
+      description: " Learn how to make delicious food and tasty treats in the kitchen", 
+      date:"2024-9-21",
+      imageUrl :"/pic3.jpg",
+
+    },
+
+    {
+      id : '5',
+      title : "Music or Dance ",
+      description: "Have fun singing, playing instruments, or dancing to your favorite tunes ",
+      date:"2024-11-28",
+      imageUrl :"/pic8.webp",
+
+    },
+
+    {
+      id : '6',
+      title : "Story Time",
+      description: "Enjoy listening to exciting stories that take you to magical places",
+      imageUrl :"/pic5.jpg",
+
+    },
+    {
+      id : '7',
+      title : "Yoga or Movement",
+      description: "Stretch, relax, and move your body in fun ways to feel good",
+      date:"2024-11-28",
+      imageUrl :"/pic6.avif",
+
+    },
+    {
+      id : '8',
+      title : "Outdoor Games ",
+      description: "Their black and white stripes are unique and are as distinctive as human fingerprints", 
+      date:"2024-11-28",
+      imageUrl :"/pic7.jpg",
+
+    },
+    {
+      id : '9',
+      title : "Pet Care",
+      description: "Learn how to take care of animals by feeding them, cleaning, and playing with them", 
+      date:"2024-11-28",
+      imageUrl :"/pic9.webp",
+
+    },
+   ];
+  return (
+    <div className='my-8 '>
+      <h1 className='text-3xl font-bold text-center my-8 text-amber-700 animate-color-change'>
+        { "" }
+        Here are different activity ideas for kids
+        </h1>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
+          {post.map((post, index) => (
+            <div className="fade-in" key={post.id}>
+            <div className="blog-card">
+               <BlogCard post={post} isDarkBackground={index%2 === 0} />
+            </div>
+            </div>
+          ))}
+        </div>
+    </div>
+  );
+  
+}
+
+className="relative group py-6 bg-purple-700 rounded-lg shadow-lg hover:bg-yellow-400 hover:text-black transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer flex items-center justify-center text-black">
