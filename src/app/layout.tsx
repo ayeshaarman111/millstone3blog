@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
-import Commentsection from "@/Components/CommentSection";
+import CommentSection from "@/Components/CommentSection";
 import Header from "@/Components/Header";
 
 const geistSans = localFont({
@@ -27,17 +27,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const postId = "some-unique-post-id"; // Define your postId here (static or dynamic)
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar/>
-        <Header/>
+        <Navbar />
+        <Header />
         {children}
-        <Commentsection/>
-        <Footer/>
+        {/* Pass postId to CommentSection */}
+        <CommentSection postId={postId} />
+        <Footer />
       </body>
     </html>
   );
 }
+
