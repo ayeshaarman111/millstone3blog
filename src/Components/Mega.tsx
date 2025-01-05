@@ -42,6 +42,7 @@ export default function Mega() {
       id: '6',
       title: "Story Time",
       description: "Enjoy listening to exciting stories that take you to magical places",
+      date: "2024-11-28",
       imageUrl: "/pic5.jpg",
     },
     {
